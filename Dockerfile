@@ -1,5 +1,5 @@
 # Build Stage
-FROM microsoft/aspnetcore-build:2 AS build-env
+FROM microsoft/dotnet:2.1-sdk AS build-env
 
 WORKDIR /generator
 
@@ -13,14 +13,14 @@ RUN dotnet restore tests/tests.csproj
 COPY . .
 
 # test
-ENV TEAMCITY_PROJECT_NAME=fake
+ENV TEAMCITY_PROJECT_NAME=AspnetcoreGeneratorApi
 RUN dotnet test tests/tests.csproj
 
 # publish
 RUN dotnet publish api/api.csproj -o /publish 
 
 # Runtime stage
-FROM microsoft/aspnetcore:2
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 COPY --from=build-env /publish /publish
 WORKDIR /publish
 ENTRYPOINT ["dotnet", "api.dll"]
