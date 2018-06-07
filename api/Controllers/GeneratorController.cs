@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Faker;
-using Faker.Extensions;
 using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
